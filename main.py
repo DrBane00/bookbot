@@ -11,12 +11,32 @@ def main ():
     
 main()
 '''
-
+import sys
 # imports from stats.py the filepath, the <get_book_text> and <charc_and_count> funcs
-from stats import path_to_file, get_book_text, charc_and_count
+from stats import get_book_text, charc_and_count, get_num_words
 
-# creates a var called <file_contents> 
-file_contents = get_book_text(path_to_file)
+'''
+if len(sys.argv) != 2:
+    print("Usage: python3 main.py <path_to_book>")
+else:
+'''
 
-dictionary_of_chars_and_counts = charc_and_count(file_contents)
-print(dictionary_of_chars_and_counts)
+
+def main ():
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    path_to_file = sys.argv[1]
+    # creates a var called <file_contents> 
+    file_contents = get_book_text(path_to_file)
+    get_num_words(file_contents, path_to_file)
+
+    print("--------- Character Count -------")
+    dictionary_of_chars_and_counts = charc_and_count(file_contents)
+    print("============= END ===============")
+
+#def sort_on(items):
+ #   return items["num"]
+#print(dictionary_of_chars_and_counts)
+main ()

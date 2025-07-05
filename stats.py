@@ -32,7 +32,7 @@ def count_char (book_text):
 #from discord ... i'll try and explain each step
 
 # finds the book
-path_to_file = "books/frankenstein.txt"
+#path_to_file = ""
 
 # creates and returns a string called <file_contents>
 def get_book_text(path_to_file):
@@ -42,13 +42,16 @@ def get_book_text(path_to_file):
     return file_contents
 
 # this func aims to count the words in the book
-def get_num_words(file_contents):
+def get_num_words(file_contents, path_to_file):
     # creates a list from a string
     words = file_contents.split()
     # counts the num of words
     num_words = len(words)
     # prints
-    print(f"{num_words} words found in the document")
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {path_to_file}...")
+    print("----------- Word Count ----------")
+    print(f"Found {num_words} total words")
 
 # this func aims to count the frequency of each char in the book
 def charc_and_count(file_contents):
@@ -75,12 +78,31 @@ def charc_and_count(file_contents):
             else:
                 # add one to the value of that key
                 charc_count_dict[letter] += 1
+    
+    list_of_dicts = []
+
+    for chars, count in charc_count_dict.items():
+        new_dict = {"char": chars, "num": count}
+        list_of_dicts.append(new_dict)
+
+    def sort_chars(dictionary):
+        return dictionary["num"]
+    
+    list_of_dicts.sort(reverse=True, key=sort_chars)
+    for i in list_of_dicts:
+        if i["char"].isalpha() == True:
+            print(f"{i["char"]}: {i["num"]}")
+    #sort_chars(charc_and_count)
+
     # returns the dict
-    return charc_count_dict
+    return list_of_dicts
+#dictionary_of_chars_and_counts = charc_and_count(file_contents)
 
-def sort_chars (charc_count_dict):
-    charc_count_dict = charc_and_count(file_contents)
 
+#def sort_chars (list_of_dicts):
+ #   return list_of_dicts["num"]
+
+'''
 # the main func
 def main():
     # creates a var called <file_contents>
@@ -89,7 +111,7 @@ def main():
     # calls the <get_num_words> func ... that prints the num of words
     get_num_words(file_contents)
     # calls the <char_and_count> func ... that returns a dict
-    charc_and_count(file_contents)
-
+    #charc_and_count(file_contents)
+'''
 # calls main
-main()
+#main()
